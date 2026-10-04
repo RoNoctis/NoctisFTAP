@@ -1,4 +1,4 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local BreezeUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kaisorius/BreezeUI/refs/heads/main/BreezeUI.lua"))()
 
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
@@ -75,54 +75,41 @@ end
 
 Workspace.ChildAdded:Connect(handleGrab)
 
-local Window = Rayfield:CreateWindow({
+local Window = BreezeUI:CreateWindow({
 	Name = "Noctis FTAP #1",
-	LoadingTitle = "Noctis FTAP",
-	LoadingSubtitle = "by 72ms",
-	ConfigurationSaving = {
-		Enabled = false,
-	},
-	KeySystem = false,
+	Description = "Fling / Launch Utility"
 })
 
-local Tab = Window:CreateTab("Main", 0)
+local Tab = Window:CreateTab("Main")
 
-Tab:CreateToggle({
+Tab:Toggle({
 	Name = "Enable Super Throw",
-	CurrentValue = settings.enabled,
-	Flag = "noctis_enabled",
+	Description = "Toggle launch boost",
 	Callback = function(val)
 		settings.enabled = val
-		Rayfield:Notify({
-			Title = "Noctis FTAP",
-			Content = val and "Throw Boost Active" or "Disabled",
-			Duration = 1.5,
-			Image = 0,
-		})
-	end,
+	end
 })
 
-Tab:CreateSlider({
-	Name = "Throw Strength",
-	Range = {50, 1500},
-	Increment = 25,
-	Suffix = " power",
-	CurrentValue = settings.strength,
-	Flag = "noctis_strength",
-	Callback = function(val)
-		settings.strength = val
-	end,
+Tab:Button({
+	Name = "Strength: Normal (250)",
+	Description = "Set throw strength to 250",
+	Callback = function()
+		settings.strength = 250
+	end
 })
 
-Tab:CreateButton({
-	Name = "Max Strength (1500)",
+Tab:Button({
+	Name = "Strength: High (750)",
+	Description = "Set throw strength to 750",
+	Callback = function()
+		settings.strength = 750
+	end
+})
+
+Tab:Button({
+	Name = "Strength: Max (1500)",
+	Description = "Set throw strength to 1500",
 	Callback = function()
 		settings.strength = 1500
-		Rayfield:Notify({
-			Title = "Strength",
-			Content = "Set to 1500",
-			Duration = 1.5,
-			Image = 0,
-		})
-	end,
+	end
 })
