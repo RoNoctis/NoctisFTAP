@@ -1,4 +1,4 @@
-local Rayfield = loadstring(game:HttpGet("https://cdn.jsdelivr.net/gh/72msreal-pixel/MySoure@main/Rayfield-Plus.luau"))()
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
@@ -76,54 +76,53 @@ end
 Workspace.ChildAdded:Connect(handleGrab)
 
 local Window = Rayfield:CreateWindow({
-	name = "Noctis FTAP #1",
-	subtitle = "Fling / Launch Utility",
-	icon = 0,
-	size = UDim2.fromOffset(500, 340),
+	Name = "Noctis FTAP #1",
+	LoadingTitle = "Noctis FTAP",
+	LoadingSubtitle = "by 72ms",
+	ConfigurationSaving = {
+		Enabled = false,
+	},
+	KeySystem = false,
 })
 
-local Tab = Window:CreateTab({
-	name = "Main",
-	icon = 0,
-})
+local Tab = Window:CreateTab("Main", 0)
 
 Tab:CreateToggle({
-	name = "Enable Super Throw",
-	flag = "noctis_enabled",
-	value = settings.enabled,
-	callback = function(val)
+	Name = "Enable Super Throw",
+	CurrentValue = settings.enabled,
+	Flag = "noctis_enabled",
+	Callback = function(val)
 		settings.enabled = val
-		Window:Toast({
-			title = "Noctis FTAP",
-			subtitle = val and "Throw Boost Active" or "Disabled",
-			position = "Top",
-			duration = 1.5,
+		Rayfield:Notify({
+			Title = "Noctis FTAP",
+			Content = val and "Throw Boost Active" or "Disabled",
+			Duration = 1.5,
+			Image = 0,
 		})
 	end,
 })
 
 Tab:CreateSlider({
-	name = "Throw Strength",
-	flag = "noctis_strength",
-	range = {50, 1500},
-	increment = 25,
-	value = settings.strength,
-	suffix = " power",
-	callback = function(val)
+	Name = "Throw Strength",
+	Range = {50, 1500},
+	Increment = 25,
+	Suffix = " power",
+	CurrentValue = settings.strength,
+	Flag = "noctis_strength",
+	Callback = function(val)
 		settings.strength = val
 	end,
 })
 
 Tab:CreateButton({
-	name = "Max Strength (1500)",
-	description = "Sets impulse power to absolute maximum",
-	callback = function()
+	Name = "Max Strength (1500)",
+	Callback = function()
 		settings.strength = 1500
-		Window:Toast({
-			title = "Strength",
-			subtitle = "Set to 1500",
-			position = "Top",
-			duration = 1.5,
+		Rayfield:Notify({
+			Title = "Strength",
+			Content = "Set to 1500",
+			Duration = 1.5,
+			Image = 0,
 		})
 	end,
 })
